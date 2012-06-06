@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: Jun 06, 2012 as 07:19 PM
+-- Tempo de Geração: Jun 06, 2012 as 07:59 PM
 -- Versão do Servidor: 5.0.51
 -- Versão do PHP: 5.2.6
 
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `cidades` (
   `municipio` varchar(50) NOT NULL,
   UNIQUE KEY `id` (`id`),
   KEY `id_2` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9715 ;
 
 --
 -- Extraindo dados da tabela `cidades`
@@ -9794,7 +9794,7 @@ CREATE TABLE IF NOT EXISTS `eventos` (
   `valor` float(9,3) default NULL,
   `status` varchar(7) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Extraindo dados da tabela `eventos`
@@ -9835,7 +9835,7 @@ CREATE TABLE IF NOT EXISTS `participacoes` (
   `sorteio` varchar(3) default NULL,
   PRIMARY KEY  (`id`),
   KEY `id_participante` (`id_participante`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Extraindo dados da tabela `participacoes`
@@ -9867,10 +9867,29 @@ CREATE TABLE IF NOT EXISTS `participantes` (
   `regional` int(11) default NULL,
   `data_cadastro` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Extraindo dados da tabela `participantes`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `presencas`
+--
+
+CREATE TABLE IF NOT EXISTS `presencas` (
+  `id` int(11) NOT NULL auto_increment,
+  `id_participacao` int(11) default NULL,
+  `data_evento` datetime default NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Extraindo dados da tabela `presencas`
 --
 
 
@@ -9885,7 +9904,7 @@ CREATE TABLE IF NOT EXISTS `regionais` (
   `area` int(11) default NULL,
   `congregacao` varchar(255) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Extraindo dados da tabela `regionais`
