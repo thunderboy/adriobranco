@@ -1,0 +1,20 @@
+All Wordpress Themes sold on MOJO Themes are sold with a split license. Therefore, you will find to .txt files for both the GPL license and the MOJO Themes license.
+
+This WordPress theme may comprise and consist of, inter alia, graphic designs, images, JavaScript, HTML and CSS Files, and other unique digital creations and intellectual property of the Mojoness™ users (collectively, the “IP”).  A limited use license is granted by Mojoness™ to use this IP in accordance with agreements made when the IP was download from websites maintained by Mojoness™.  This license is binding upon all users making use of this WordPress theme. The IP includes only intellectual property which is supplemental to, and outside the scope of, the General Public License (GPL) of the Free Software Foundation which controls some of content in this WordPress theme and others.  The IP includes images, JavaScript, HTML elements, and CSS files, as well as PHP source code, and other source code, that is not derivative of the WordPress code covered by the GPL.  The IP does not include the WordPres code itself or PHP source code to the extent that PHP source code is derivative of the WordPress code.  You must comply with the terms of the GPL as is controls the WordPress code and derivative source code of the Wordpress code.
+
+---
+
+In laymen's terms please:
+
+In others words, all core Wordpress files fall under the GPL license. 
+
+Learn more here:
+
+http://codex.wordpress.org/GPL
+
+All other files of the theme including, but not limited to the HTML, CSS code, images, and design fall under our licensing agreement. 
+
+Learn more here:
+
+http://www.mojo-themes.com/terms-and-conditions/
+
