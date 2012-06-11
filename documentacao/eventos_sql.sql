@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: Jun 06, 2012 as 07:59 PM
+-- Tempo de Geração: Jun 11, 2012 as 07:02 PM
 -- Versão do Servidor: 5.0.51
 -- Versão do PHP: 5.2.6
 
@@ -9811,7 +9811,8 @@ CREATE TABLE IF NOT EXISTS `pagamentos` (
   `id` int(11) NOT NULL auto_increment,
   `id_participacao` int(11) default NULL,
   `valor_pago` float(9,3) default NULL,
-  `descricao` varchar(255) default NULL,
+  `forma_pagamento` varchar(255) default NULL,
+  `obs` varchar(20) default NULL,
   `data_pagamento` datetime default NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `id` (`id`)
@@ -9852,18 +9853,13 @@ CREATE TABLE IF NOT EXISTS `participantes` (
   `id` int(11) NOT NULL auto_increment,
   `nome` varchar(255) default NULL,
   `nome_cracha` varchar(255) default NULL,
-  `sexo` varchar(255) default NULL,
   `nascimento` date default NULL,
-  `endereco` varchar(255) default NULL,
   `cidade` varchar(255) default NULL,
   `uf` varchar(255) default NULL,
-  `cep` varchar(255) default NULL,
   `telefone` varchar(40) default NULL,
   `celular` varchar(40) default NULL,
   `email` varchar(255) default NULL,
   `cpf` varchar(255) default NULL,
-  `rg` varchar(255) default NULL,
-  `rg_uf` varchar(2) default NULL,
   `regional` int(11) default NULL,
   `data_cadastro` datetime default NULL,
   PRIMARY KEY  (`id`)
@@ -9871,25 +9867,6 @@ CREATE TABLE IF NOT EXISTS `participantes` (
 
 --
 -- Extraindo dados da tabela `participantes`
---
-
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `presencas`
---
-
-CREATE TABLE IF NOT EXISTS `presencas` (
-  `id` int(11) NOT NULL auto_increment,
-  `id_participacao` int(11) default NULL,
-  `data_evento` datetime default NULL,
-  PRIMARY KEY  (`id`),
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Extraindo dados da tabela `presencas`
 --
 
 
@@ -9922,7 +9899,8 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `nome` varchar(50) NOT NULL,
   `login` varchar(50) NOT NULL,
   `senha` varchar(50) NOT NULL,
-  `ativo` tinyint(1) default '1',
+  `perfil` varchar(20) default NULL,
+  `status` varchar(10) default '1',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `uk_usuarios` (`login`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
