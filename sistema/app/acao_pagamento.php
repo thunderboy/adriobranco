@@ -10,14 +10,14 @@ switch ($action) {
 //************************************************************************************************
 //		 				  	           INICIO ACTION - PARTICIPANTES
 //************************************************************************************************
-case "participante.add";
-participante.add();
+case "pagamento.add";
+pagamento.add();
 break;
-case "participante.upd";
-participante.upd();
+case "pagamento.upd";
+pagamento.upd();
 break;
-case "participante.del";
-participante.del();
+case "pagamento.del";
+pagamento.del();
 break;
 //************************************************************************************************
 //		 				  	             FIM ACTION - PARTICIPANTES
@@ -30,20 +30,45 @@ return $action;
 //	  	  							     CADASTRO DE PARTICIPANTES
 //************************************************************************************************
 
-function participante.add(){
+function pagamento.add(){
 
-$nome			= $_POST['participante.nome'];
-$nome_cracha	= $_POST['participante.nome_cracha'];
-$nascimento		= convertDataMysql($_POST['participante.nascimento']);
-$cidade			= $_POST['participante.cidade'];
-$uf				= $_POST['participante.uf'];
-$telefone		= $_POST['participante.telefone'];
-$celular		= $_POST['participante.celular'];
-$email			= $_POST['participante.email'];
-$cpf 			= limparMascara("cpf",$_POST['participante.cpf']);
-$regional		= $_POST['participante.regional'];
-$status			= $_POST['participante.status'];
+$id				= $_POST['participante.id'];
 $evento			= $_POST['evento.id'];
+$valor			= $_POST['pagamento.valor'];
+$forma			= $_POST['pagamento.forma_pagamento'];
+
+//Recuperando o ID de participação
+$qn = mysql_query("SELECT id FROM participacoes WHERE id_participante='".$id."' and id_evento='".$evento."'");
+$rw = mysql_fetch_array($qn);
+
+//Registrando o pagamento
+$sql = "INSERT INTO pagamento
+		(id_participacao, valor_pago, forma_pagamento, cidade, uf, telefone, celular, email, cpf, regional, status) 
+		VALUES ('$nome', '$nome_cracha', '$nascimento', '$cidade', '$uf', '$telefone', '$celular', '$email', '$cpf', '$regional', '$status')";
+$query = mysql_query($sql) or die(mysql_error());
+
+
+
+$nome			= $_POST['pagamento.nome'];
+$nome_cracha	= $_POST['pagamento.nome_cracha'];
+$nascimento		= convertDataMysql($_POST['pagamento.nascimento']);
+$cidade			= $_POST['pagamento.cidade'];
+$uf				= $_POST['pagamento.uf'];
+$telefone		= $_POST['pagamento.telefone'];
+$celular		= $_POST['pagamento.celular'];
+$email			= $_POST['pagamento.email'];
+$cpf 			= limparMascara("cpf",$_POST['pagamento.cpf']);
+$regional		= $_POST['pagamento.regional'];
+$status			= $_POST['pagamento.status'];
+$evento			= $_POST['evento.id'];
+
+
+$_SESSION['id_ficha'] = $ultimo_id;
+$_SESSION['nome_usuario'] = $rw["nome"];
+$_SESSION['cpf'] = $rw["cpf"];
+$_SESSION['status_usuario'] = $rw["status"];
+
+
 
 //Inserindo na tabela participantes
 $sql = "INSERT INTO participantes
@@ -83,20 +108,20 @@ if (!$query) {
 //	  								   UPDATE PARTICIPANTES
 //************************************************************************************************
 
-function participante.upd(){
+function pagamento.upd(){
 $pg 			= $_POST['pg'];
-$id				= $_POST['participante.id'];
-$nome			= $_POST['participante.nome'];
-$nome_cracha	= $_POST['participante.nome_cracha'];
-$nascimento		= convertDataMysql($_POST['participante.nascimento']);
-$cidade			= $_POST['participante.cidade'];
-$uf				= $_POST['participante.uf'];
-$telefone		= $_POST['participante.telefone'];
-$celular		= $_POST['participante.celular'];
-$email			= $_POST['participante.email'];
-$cpf 			= limparMascara("cpf",$_POST['participante.cpf']);
-$regional		= $_POST['participante.regional'];
-$status			= $_POST['participante.status'];
+$id				= $_POST['pagamento.id'];
+$nome			= $_POST['pagamento.nome'];
+$nome_cracha	= $_POST['pagamento.nome_cracha'];
+$nascimento		= convertDataMysql($_POST['pagamento.nascimento']);
+$cidade			= $_POST['pagamento.cidade'];
+$uf				= $_POST['pagamento.uf'];
+$telefone		= $_POST['pagamento.telefone'];
+$celular		= $_POST['pagamento.celular'];
+$email			= $_POST['pagamento.email'];
+$cpf 			= limparMascara("cpf",$_POST['pagamento.cpf']);
+$regional		= $_POST['pagamento.regional'];
+$status			= $_POST['pagamento.status'];
 
 $resultado= "UPDATE participantes SET
 			 nome='$nome', nome_cracha='$nome_cracha', nascimento='$nascimento', cidade='$cidade', uf='$uf',
@@ -127,7 +152,7 @@ if (!$query) {
 //										REMOVER PARTICIPANTES
 //************************************************************************************************
 
-function participante.del(){
+function pagamento.del(){
 
 $id 			= $_GET['id'];
 $pg 			= $_GET['pg'];

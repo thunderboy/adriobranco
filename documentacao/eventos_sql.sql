@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: Jun 11, 2012 as 07:02 PM
+-- Tempo de Geração: Jun 12, 2012 as 07:00 PM
 -- Versão do Servidor: 5.0.51
 -- Versão do PHP: 5.2.6
 
@@ -18,6 +18,8 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Banco de Dados: `eventos`
 --
+CREATE DATABASE `eventos` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `eventos`;
 
 -- --------------------------------------------------------
 
@@ -9862,6 +9864,7 @@ CREATE TABLE IF NOT EXISTS `participantes` (
   `cpf` varchar(255) default NULL,
   `regional` int(11) default NULL,
   `data_cadastro` datetime default NULL,
+  `status` varchar(7) default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
