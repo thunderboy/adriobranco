@@ -131,9 +131,19 @@ function participante.del(){
 
 $id 			= $_GET['id'];
 $pg 			= $_GET['pg'];
+$evento			= $_GET['evento.id'];
+
+//Recuperando o ID de participação
+$qn = mysql_query("SELECT id FROM participacoes WHERE id_participante='".$id."' and id_evento='".$evento."'");
+$rw = mysql_fetch_array($qn);
+$participacao	= $rw["id"];
 
 //Removendo da tabela de participantes
 $resultado = "DELETE FROM participantes WHERE id=$id"; 
+$query = mysql_query($resultado) or die(mysql_error());
+
+//Removendo da tabela de pagamentos
+$resultado = "DELETE FROM pagamentos WHERE id_participacao=$participacao";
 $query = mysql_query($resultado) or die(mysql_error());
 
 //Removendo da tabela de participações

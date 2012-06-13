@@ -36,59 +36,17 @@ $id				= $_POST['participante.id'];
 $evento			= $_POST['evento.id'];
 $valor			= $_POST['pagamento.valor'];
 $forma			= $_POST['pagamento.forma_pagamento'];
+$parcela		= $_POST['pagamento.parcela'];
+$obs			= $_POST['obs.parcela'];
 
 //Recuperando o ID de participação
 $qn = mysql_query("SELECT id FROM participacoes WHERE id_participante='".$id."' and id_evento='".$evento."'");
 $rw = mysql_fetch_array($qn);
+$participacao	= $rw["id"];
 
 //Registrando o pagamento
-$sql = "INSERT INTO pagamento
-		(id_participacao, valor_pago, forma_pagamento, cidade, uf, telefone, celular, email, cpf, regional, status) 
-		VALUES ('$nome', '$nome_cracha', '$nascimento', '$cidade', '$uf', '$telefone', '$celular', '$email', '$cpf', '$regional', '$status')";
+$sql = "INSERT INTO pagamentos (id_participacao, valor_pago, forma_pagamento, parcela, obs, data_pagamento) VALUES ($participacao, $valor, '$forma', '$parcela', '$obs', NOW())";
 $query = mysql_query($sql) or die(mysql_error());
-
-
-
-$nome			= $_POST['pagamento.nome'];
-$nome_cracha	= $_POST['pagamento.nome_cracha'];
-$nascimento		= convertDataMysql($_POST['pagamento.nascimento']);
-$cidade			= $_POST['pagamento.cidade'];
-$uf				= $_POST['pagamento.uf'];
-$telefone		= $_POST['pagamento.telefone'];
-$celular		= $_POST['pagamento.celular'];
-$email			= $_POST['pagamento.email'];
-$cpf 			= limparMascara("cpf",$_POST['pagamento.cpf']);
-$regional		= $_POST['pagamento.regional'];
-$status			= $_POST['pagamento.status'];
-$evento			= $_POST['evento.id'];
-
-
-$_SESSION['id_ficha'] = $ultimo_id;
-$_SESSION['nome_usuario'] = $rw["nome"];
-$_SESSION['cpf'] = $rw["cpf"];
-$_SESSION['status_usuario'] = $rw["status"];
-
-
-
-//Inserindo na tabela participantes
-$sql = "INSERT INTO participantes
-		(nome, nome_cracha, nascimento, cidade, uf, telefone, celular, email, cpf, regional, status) 
-		VALUES ('$nome', '$nome_cracha', '$nascimento', '$cidade', '$uf', '$telefone', '$celular', '$email', '$cpf', '$regional', '$status')";
-$query = mysql_query($sql) or die(mysql_error());
-
-
-//************************************TABELA PARTICIPACOES - INICIO*******************************
-
-//Recuperando o ultimo_ID e somando para 1.
-$q = "SELECT LAST_INSERT_ID() FROM participantes";
-$proximo_id = mysql_query($q) + 1 or die(mysql_error());
-//$proximo_id = mysql_query("select last_insert_id()") + 1 or die(mysql_error());
-
-//Inserindo na tabela participacoes
-$sql = "INSERT INTO participacoes (id_participante, id_evento) VALUES ('$proximo_id', '$evento')";
-$query = mysql_query($sql) or die(mysql_error());
-
-//************************************TABELA PARTICIPACOES - FIM**********************************
 
 
 if (!$query) {
@@ -98,8 +56,8 @@ if (!$query) {
 		echo "</SCRIPT>";
 	} else {
 		echo "<SCRIPT LANGUAGE='JAVASCRIPT'>";
-		echo "alert('$nome - CADASTRADO COM SUCESSO!');";
-		echo "top.location.href='participantes.php';";
+		echo "alert('PAGAMENTO REGISTRADO COM SUCESSO!');";
+		echo "top.location.href='pagamentos.php';";
 		echo "</SCRIPT>";
 } 
    }
@@ -111,23 +69,12 @@ if (!$query) {
 function pagamento.upd(){
 $pg 			= $_POST['pg'];
 $id				= $_POST['pagamento.id'];
-$nome			= $_POST['pagamento.nome'];
-$nome_cracha	= $_POST['pagamento.nome_cracha'];
-$nascimento		= convertDataMysql($_POST['pagamento.nascimento']);
-$cidade			= $_POST['pagamento.cidade'];
-$uf				= $_POST['pagamento.uf'];
-$telefone		= $_POST['pagamento.telefone'];
-$celular		= $_POST['pagamento.celular'];
-$email			= $_POST['pagamento.email'];
-$cpf 			= limparMascara("cpf",$_POST['pagamento.cpf']);
-$regional		= $_POST['pagamento.regional'];
-$status			= $_POST['pagamento.status'];
+$valor			= $_POST['pagamento.valor'];
+$forma			= $_POST['pagamento.forma_pagamento'];
+$parcela		= $_POST['pagamento.parcela'];
+$obs			= $_POST['pagamento.obs'];
 
-$resultado= "UPDATE participantes SET
-			 nome='$nome', nome_cracha='$nome_cracha', nascimento='$nascimento', cidade='$cidade', uf='$uf',
-			 telefone='$telefone', celular='$celular', email='$email', cpf='$cpf', regional='$regional',
-			 status='$status' WHERE id=$id";
-
+$resultado= "UPDATE pagamentos SET valor_pago=$valor, forma_pagamento='$forma', parcela='$parcela', obs='$obs' WHERE id=$id";
 $query = mysql_query($resultado) or die(mysql_error());
 
 if (!$query) {
@@ -137,13 +84,9 @@ if (!$query) {
 		echo "</SCRIPT>";
 	} else {
 		echo "<SCRIPT LANGUAGE='JAVASCRIPT'>";
-		echo "alert('ATUALIZADO COM SUCESSO');";
-
-		if ($_SESSION['perfil'] == 'adm') {
-		echo "top.location.href='participantes.php?pg=$pg';";
-		} else {
+		echo "alert('PAGAMENTO ATUALIZADO COM SUCESSO');";
+		echo "top.location.href='pagamentos.php?pg=$pg';";
 		echo "top.location.href='interno.php';";
-		}
 		echo "</SCRIPT>";
 }
    }  
